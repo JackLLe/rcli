@@ -59,7 +59,6 @@ fn csv_to_json(input_file: &str, output_file: &str, delimiter: char, header: boo
         ret.push(record);
     }
     let json_data = serde_json::to_string_pretty(&ret)?;
-    std::fs::write(output_file, json_data)?;
     Ok(())
 }
 

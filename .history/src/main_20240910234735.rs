@@ -38,7 +38,8 @@ struct Player {
     dob:String,
     nationality:String,
     #[serde(rename = "Kit Number")]
-    kit:u8,  
+    Kit:u8, 
+    
 }
 
 fn verify_input_file(filename: &str) -> Result<String> {
@@ -50,16 +51,13 @@ fn verify_input_file(filename: &str) -> Result<String> {
 }
 
 fn csv_to_json(input_file: &str, output_file: &str, delimiter: char, header: bool) -> Result<()> {
-    let mut rdr = csv::Reader::from_path(input_file)?;
-    let mut ret = Vec::new();
-    for result in rdr.deserialize() {
-        // The iterator yields Result<StringRecord, Error>, so we check the
-        // error here.
-        let record:Player = result?;
-        ret.push(record);
-    }
-    let json_data = serde_json::to_string_pretty(&ret)?;
-    std::fs::write(output_file, json_data)?;
+    let mut rdr = csv::Reader::from_path(input_file);
+    // for result in rdr.records() {
+    //     // The iterator yields Result<StringRecord, Error>, so we check the
+    //     // error here.
+    //     let record = result?;
+    //     println!("{:?}", record);
+    // }
     Ok(())
 }
 
